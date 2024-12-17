@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Meals.css";
 
@@ -7,21 +7,60 @@ const Meals = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedArea, setSelectedArea] = useState("");
   const navigate = useNavigate();
 
+  // Fetch categories and areas when component mounts
+  useEffect(() => {
+    fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
+      .then((res) => res.json())
+      .then((data) => setCategories(data.meals || []));
+
+    fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
+      .then((res) => res.json())
+      .then((data) => setAreas(data.meals || []));
+  }, []);
+
   const handleSearch = () => {
-    if (!search.trim()) return; // Prevent empty search
+    if (!search.trim()) return;
     setLoading(true);
-    setMeals([]); // Clear previous results
+    setMeals([]);
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`)
       .then((response) => response.json())
       .then((data) => {
-        setMeals(data.meals || []); // Handle case when no meals are found
+        setMeals(data.meals || []);
         setLoading(false);
-        setSuggestions([]); // Clear suggestions after search
+        setSuggestions([]);
       })
       .catch(() => {
         setMeals([]);
+        setLoading(false);
+      });
+  };
+
+  const handleSortByCategory = (category) => {
+    setLoading(true);
+    setMeals([]);
+    setSelectedCategory(category);
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMeals(data.meals || []);
+        setLoading(false);
+      });
+  };
+
+  const handleSortByArea = (area) => {
+    setLoading(true);
+    setMeals([]);
+    setSelectedArea(area);
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMeals(data.meals || []);
         setLoading(false);
       });
   };
@@ -34,14 +73,14 @@ const Meals = () => {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
       .then((response) => response.json())
       .then((data) => {
-        setSuggestions(data.meals || []); // Meals returned from API
+        setSuggestions(data.meals || []);
       })
       .catch(() => setSuggestions([]));
   };
 
   return (
     <div className="meals-container">
-      <h1>Meals 1</h1>
+      <h1>Meals</h1>
       <div className="search-container">
         <input
           type="text"
@@ -56,6 +95,36 @@ const Meals = () => {
         <button onClick={handleSearch} className="search-button">
           Search
         </button>
+
+        {/* Sort by Category Dropdown */}
+        <select
+          value={selectedCategory}
+          onChange={(e) => handleSortByCategory(e.target.value)}
+          className="dropdown"
+        >
+          <option value="">Sort by Category</option>
+          {categories.map((cat) => (
+            <option key={cat.strCategory} value={cat.strCategory}>
+              {cat.strCategory}
+            </option>
+          ))}
+        </select>
+
+        {/* Sort by Area Dropdown */}
+        <select
+          value={selectedArea}
+          onChange={(e) => handleSortByArea(e.target.value)}
+          className="dropdown"
+        >
+          <option value="">Sort by Area</option>
+          {areas.map((area) => (
+            <option key={area.strArea} value={area.strArea}>
+              {area.strArea}
+            </option>
+          ))}
+        </select>
+
+        {/* Suggestions List */}
         {suggestions.length > 0 && (
           <ul className="suggestions-list">
             {suggestions.map((meal) => (
@@ -64,7 +133,7 @@ const Meals = () => {
                 className="suggestion-item"
                 onClick={() => {
                   setSearch(meal.strMeal);
-                  setSuggestions([]); // Clear suggestions after selection
+                  setSuggestions([]);
                 }}
               >
                 <img
@@ -78,6 +147,8 @@ const Meals = () => {
           </ul>
         )}
       </div>
+
+      {/* Loading or Meals Display */}
       {loading ? (
         <p>Loading...</p>
       ) : meals.length > 0 ? (
@@ -92,7 +163,7 @@ const Meals = () => {
               <h2>{meal.strMeal}</h2>
               <button
                 className="recipe-button"
-                onClick={() => navigate(`/recipe/${meal.idMeal}`)} // Navigate to Recipe page
+                onClick={() => navigate(`/recipe/${meal.idMeal}`)}
               >
                 Recipe
               </button>
@@ -100,7 +171,7 @@ const Meals = () => {
           ))}
         </div>
       ) : (
-        <p className="no-results">Search for meals to display results.</p>
+        <p className="no-results">Search for meals or use filters to display results.</p>
       )}
     </div>
   );
