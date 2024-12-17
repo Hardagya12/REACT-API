@@ -1,0 +1,149 @@
+.cocktails-container {
+    text-align: center;
+    margin: 2rem auto;
+    font-family: "Arial", sans-serif;
+    max-width: 1200px;
+    background-color: #1e1e2f; 
+    padding: 2rem; 
+    border-radius: 10px; 
+}
+
+.title {
+    color: #ffffff; 
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative; 
+}
+
+.search-bar {
+    padding: 0.5rem;
+    width: 600px;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid #444; 
+    font-size: 1rem;
+    background-color: #2b2b3d; 
+    color: #f1f1f1; 
+    transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+    border-color: #5d3fd3; 
+    box-shadow: 0 4px 8px rgba(93, 63, 211, 0.2); 
+}
+
+.search-button {
+    margin-left: 1rem;
+    padding: 0 1rem;
+    height: 40px;
+    background: #5d3fd3; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-button:hover {
+    background: #4b2caf; 
+}
+
+.loading {
+    font-size: 1.5rem;
+    color: #f1f1f1; 
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.cocktail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.cocktail-card {
+    background: #2b2b3d; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.cocktail-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.cocktail-img {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.cocktail-name {
+    font-size: 1.4rem;
+    margin: 0.5rem 0;
+    color: #ffffff; 
+}
+
+.cocktail-id,
+.cocktail-category {
+    font-size: 1rem;
+    color: #ccc; 
+    margin: 0.3rem 0;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #2b2b3d; 
+    border: 1px solid #444; 
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #f1f1f1; 
+}
+
+.suggestion-item:hover {
+    background-color: #5d3fd3; 
+}
+
+.suggestion-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.suggestions-list span {
+    font-size: 1rem;
+    color: #f1f1f1; 
+}
