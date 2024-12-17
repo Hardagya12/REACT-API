@@ -3,13 +3,13 @@
     margin: 2rem auto;
     font-family: "Arial", sans-serif;
     max-width: 1200px;
-    background-color: #1e1e2f; 
-    padding: 2rem; 
-    border-radius: 10px; 
+    background-color: #1e1e2f;
+    padding: 2rem;
+    border-radius: 10px;
 }
 
 .title {
-    color: #ffffff; 
+    color: #ffffff;
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
 }
@@ -17,8 +17,9 @@
 .search-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 2rem;
-    position: relative; 
+    position: relative;
 }
 
 .search-bar {
@@ -26,23 +27,23 @@
     width: 600px;
     height: 40px;
     border-radius: 6px;
-    border: 1px solid #444; 
+    border: 1px solid #444;
     font-size: 1rem;
-    background-color: #2b2b3d; 
-    color: #f1f1f1; 
+    background-color: #2b2b3d;
+    color: #f1f1f1;
     transition: all 0.3s ease-in-out;
 }
 
 .search-bar:focus {
-    border-color: #5d3fd3; 
-    box-shadow: 0 4px 8px rgba(93, 63, 211, 0.2); 
+    border-color: #5d3fd3;
+    box-shadow: 0 4px 8px rgba(93, 63, 211, 0.2);
 }
 
 .search-button {
     margin-left: 1rem;
     padding: 0 1rem;
     height: 40px;
-    background: #5d3fd3; 
+    background: #5d3fd3;
     color: white;
     border: none;
     border-radius: 6px;
@@ -51,12 +52,12 @@
 }
 
 .search-button:hover {
-    background: #4b2caf; 
+    background: #4b2caf;
 }
 
 .loading {
     font-size: 1.5rem;
-    color: #f1f1f1; 
+    color: #f1f1f1;
     animation: blink 1.5s infinite;
 }
 
@@ -73,12 +74,15 @@
 }
 
 .cocktail-card {
-    background: #2b2b3d; 
+    background: #2b2b3d;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
     padding: 1rem;
     transition: transform 0.5s, box-shadow 0.5s;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
 }
 
 .cocktail-card:hover {
@@ -88,21 +92,21 @@
 
 .cocktail-img {
     width: 100%;
-    height: 200px;
+    height: 200px; 
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: contain; 
 }
 
 .cocktail-name {
     font-size: 1.4rem;
     margin: 0.5rem 0;
-    color: #ffffff; 
+    color: #ffffff;
 }
 
 .cocktail-id,
 .cocktail-category {
     font-size: 1rem;
-    color: #ccc; 
+    color: #ccc;
     margin: 0.3rem 0;
 }
 
@@ -111,8 +115,8 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: #2b2b3d; 
-    border: 1px solid #444; 
+    background-color: #2b2b3d;
+    border: 1px solid #444;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -129,11 +133,11 @@
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: background-color 0.3s;
-    color: #f1f1f1; 
+    color: #f1f1f1;
 }
 
 .suggestion-item:hover {
-    background-color: #5d3fd3; 
+    background-color: #5d3fd3;
 }
 
 .suggestion-img {
@@ -145,5 +149,42 @@
 
 .suggestions-list span {
     font-size: 1rem;
-    color: #f1f1f1; 
+    color: #f1f1f1;
+}
+
+.dropdown {
+    padding: 0.5rem;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2b2b3d;
+    color: #f1f1f1;
+    transition: all 0.3s ease-in-out;
+    margin-left: 1rem;
+}
+
+.dropdown:focus {
+    border-color: #5d3fd3;
+    box-shadow: 0 4px 8px rgba(93, 63, 211, 0.2);
+}
+
+.random-button {
+    padding: 1rem 1.5rem; 
+    font-size: 1.1rem; 
+    font-weight: bold; 
+    background: #2575fc; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s, transform 0.2s; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 55px; 
+}
+
+.random-button:hover {
+    background: #6a11cb; 
+    transform: scale(1.05); 
 }

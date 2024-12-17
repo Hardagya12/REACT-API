@@ -23,7 +23,6 @@ h1 {
   margin-bottom: 1.5rem; 
 }
 
-
 .search-container {
   display: flex;
   justify-content: center;
@@ -31,6 +30,7 @@ h1 {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem; 
+  position: relative; 
 }
 
 .search-bar {
@@ -90,9 +90,11 @@ h1 {
   box-shadow: 0 0 5px rgba(106, 17, 203, 0.7);
 }
 
-
 .suggestions-list {
-  position: absolute;
+  position: absolute; 
+  top: 100%; 
+  left: 0; 
+  width: 100%; 
   background-color: #2b2b3d;
   border: 1px solid #444;
   border-radius: 5px;
@@ -122,7 +124,6 @@ h1 {
   border-radius: 5px; 
   margin-right: 1rem; 
 }
-
 
 .meal-grid {
   display: grid;
@@ -173,7 +174,6 @@ h1 {
   font-size: 1.5rem; 
   color: #f1f1f1; 
 }
-
 
 ::-webkit-scrollbar {
   width: 8px; 
