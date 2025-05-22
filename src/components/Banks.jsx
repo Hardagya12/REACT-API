@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "./Navbar";
 import "./Banks.css";
 
 const Banks = () => {
@@ -36,44 +37,47 @@ const Banks = () => {
   };
 
   return (
-    <div className="banks-container">
-      <h1 className="banks-title">Search Bank by IFSC Code</h1>
+    <div className="banks-wrapper">
+      <Navbar />
+      <div className="banks-container">
+        <h1 className="banks-title">Search Bank by IFSC Code</h1>
 
-      {/* Search Section */}
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Enter IFSC Code"
-          value={ifscCode}
-          onChange={(e) => setIfscCode(e.target.value)} // Store input value
-          className="search-bar"
-        />
-        <button onClick={handleSearch} className="search-button">
-          Search
-        </button>
-      </div>
-
-      {/* Display loading or error message */}
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      {/* Display Bank Details */}
-      {bankDetails && !loading && (
-        <div className="bank-details">
-          <h2>{bankDetails.BANK}</h2>
-          <p><strong>Branch:</strong> {bankDetails.BRANCH}</p>
-          <p><strong>IFSC:</strong> {bankDetails.IFSC}</p>
-          <p><strong>City:</strong> {bankDetails.CITY}</p>
-          <p><strong>State:</strong> {bankDetails.STATE}</p>
-          <p><strong>District:</strong> {bankDetails.DISTRICT}</p>
-          <p><strong>Address:</strong> {bankDetails.ADDRESS}</p>
-          <p><strong>Contact:</strong> {bankDetails.CONTACT}</p>
-          <p><strong>IMPS:</strong> {bankDetails.IMPS ? "Available" : "Not Available"}</p>
-          <p><strong>RTGS:</strong> {bankDetails.RTGS ? "Available" : "Not Available"}</p>
-          <p><strong>NEFT:</strong> {bankDetails.NEFT ? "Available" : "Not Available"}</p>
-          <p><strong>UPI:</strong> {bankDetails.UPI ? "Available" : "Not Available"}</p>
+        {/* Search Section */}
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Enter IFSC Code"
+            value={ifscCode}
+            onChange={(e) => setIfscCode(e.target.value)}
+            className="search-bar"
+          />
+          <button onClick={handleSearch} className="search-button">
+            Search
+          </button>
         </div>
-      )}
+
+        {/* Display loading or error message */}
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        {/* Display Bank Details */}
+        {bankDetails && !loading && (
+          <div className="bank-details">
+            <h2>{bankDetails.BANK}</h2>
+            <p><strong>Branch:</strong> {bankDetails.BRANCH}</p>
+            <p><strong>IFSC:</strong> {bankDetails.IFSC}</p>
+            <p><strong>City:</strong> {bankDetails.CITY}</p>
+            <p><strong>State:</strong> {bankDetails.STATE}</p>
+            <p><strong>District:</strong> {bankDetails.DISTRICT}</p>
+            <p><strong>Address:</strong> {bankDetails.ADDRESS}</p>
+            <p><strong>Contact:</strong> {bankDetails.CONTACT}</p>
+            <p><strong>IMPS:</strong> {bankDetails.IMPS ? "Available" : "Not Available"}</p>
+            <p><strong>RTGS:</strong> {bankDetails.RTGS ? "Available" : "Not Available"}</p>
+            <p><strong>NEFT:</strong> {bankDetails.NEFT ? "Available" : "Not Available"}</p>
+            <p><strong>UPI:</strong> {bankDetails.UPI ? "Available" : "Not Available"}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

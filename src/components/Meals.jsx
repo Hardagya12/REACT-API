@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 import "./Meals.css";
 
 const Meals = () => {
@@ -79,100 +80,103 @@ const Meals = () => {
   };
 
   return (
-    <div className="meals-container">
-      <h1>Meals</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search meals..."
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            fetchSuggestions(e.target.value);
-          }}
-          className="search-bar"
-        />
-        <button onClick={handleSearch} className="search-button">
-          Search
-        </button>
+    <div className="meals-wrapper">
+      <Navbar />
+      <div className="meals-container">
+        <h1>Meals</h1>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search meals..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              fetchSuggestions(e.target.value);
+            }}
+            className="search-bar"
+          />
+          <button onClick={handleSearch} className="search-button">
+            Search
+          </button>
 
-        {/* Sort by Category Dropdown */}
-        <select
-          value={selectedCategory}
-          onChange={(e) => handleSortByCategory(e.target.value)}
-          className="dropdown"
-        >
-          <option value="">Sort by Category</option>
-          {categories.map((cat) => (
-            <option key={cat.strCategory} value={cat.strCategory}>
-              {cat.strCategory}
-            </option>
-          ))}
-        </select>
+          {/* Sort by Category Dropdown */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => handleSortByCategory(e.target.value)}
+            className="dropdown"
+          >
+            <option value="">Sort by Category</option>
+            {categories.map((cat) => (
+              <option key={cat.strCategory} value={cat.strCategory}>
+                {cat.strCategory}
+              </option>
+            ))}
+          </select>
 
-        {/* Sort by Area Dropdown */}
-        <select
-          value={selectedArea}
-          onChange={(e) => handleSortByArea(e.target.value)}
-          className="dropdown"
-        >
-          <option value="">Sort by Area</option>
-          {areas.map((area) => (
-            <option key={area.strArea} value={area.strArea}>
-              {area.strArea}
-            </option>
-          ))}
-        </select>
+          {/* Sort by Area Dropdown */}
+          <select
+            value={selectedArea}
+            onChange={(e) => handleSortByArea(e.target.value)}
+            className="dropdown"
+          >
+            <option value="">Sort by Area</option>
+            {areas.map((area) => (
+              <option key={area.strArea} value={area.strArea}>
+                {area.strArea}
+              </option>
+            ))}
+          </select>
 
-        {/* Suggestions List */}
-        {suggestions.length > 0 && (
-          <ul className="suggestions-list">
-            {suggestions.map((meal) => (
-              <li
-                key={meal.idMeal}
-                className="suggestion-item"
-                onClick={() => {
-                  setSearch(meal.strMeal);
-                  setSuggestions([]);
-                }}
-              >
+          {/* Suggestions List */}
+          {suggestions.length > 0 && (
+            <ul className="suggestions-list">
+              {suggestions.map((meal) => (
+                <li
+                  key={meal.idMeal}
+                  className="suggestion-item"
+                  onClick={() => {
+                    setSearch(meal.strMeal);
+                    setSuggestions([]);
+                  }}
+                >
+                  <img
+                    src={meal.strMealThumb}
+                    alt={meal.strMeal}
+                    className="suggestion-img"
+                  />
+                  <span>{meal.strMeal}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {/* Loading or Meals Display */}
+        {loading ? (
+          <p>Loading...</p>
+        ) : meals.length > 0 ? (
+          <div className="meal-grid">
+            {meals.map((meal) => (
+              <div className="meal-card" key={meal.idMeal}>
                 <img
                   src={meal.strMealThumb}
                   alt={meal.strMeal}
-                  className="suggestion-img"
+                  className="meal-img"
                 />
-                <span>{meal.strMeal}</span>
-              </li>
+                <h2>{meal.strMeal}</h2>
+                <button
+                  className="recipe-button"
+                  onClick={() => navigate(`/recipe/${meal.idMeal}`)}
+                >
+                  Recipe
+                </button>
+              </div>
             ))}
-          </ul>
+          </div>
+        ) : (
+          <p className="no-results">Search for meals or use filters to display results.</p>
         )}
       </div>
-
-      {/* Loading or Meals Display */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : meals.length > 0 ? (
-        <div className="meal-grid">
-          {meals.map((meal) => (
-            <div className="meal-card" key={meal.idMeal}>
-              <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                className="meal-img"
-              />
-              <h2>{meal.strMeal}</h2>
-              <button
-                className="recipe-button"
-                onClick={() => navigate(`/recipe/${meal.idMeal}`)}
-              >
-                Recipe
-              </button>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p className="no-results">Search for meals or use filters to display results.</p>
-      )}
     </div>
   );
 };
